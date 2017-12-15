@@ -9,6 +9,15 @@ require 'automate_soup/version'
 module AutomateSoup
   class << self
     attr_accessor :url, :credentials
+
+    ##
+    # Setup Automate Soup client.
+    #
+    # @option url [String] The Chef Automate URL.
+    # @option username [String] The Chef Automate username.
+    # @option token [String] The Chef Automate user token.
+    # @option password [String] The Chef Automate user password.
+    #
     def setup(
       url: nil,
       username: nil,
@@ -25,6 +34,9 @@ module AutomateSoup
       self
     end
 
+    ##
+    # Check the status of Automate
+    #
     def status
       @api.status
     end
