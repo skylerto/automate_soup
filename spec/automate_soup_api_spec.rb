@@ -23,7 +23,6 @@ RSpec.describe AutomateSoup::API do
     projects = @soup.projects(
       organization: 'test'
     )
-    puts projects
     expect(projects).not_to be nil
   end
 end

@@ -42,7 +42,7 @@ module AutomateSoup
     #
     def projects(enterprise: 'default', organization: nil)
       @hash = AutomateSoup::Rest.get(
-        url: "#{@soup.url}/api/v0/e/#{enterprise}/orgs/projects",
+        url: "#{@soup.url}/api/v0/e/#{enterprise}/orgs/#{organization}/projects",
         username: @soup.credentials.username,
         token: @soup.credentials.token
       )
