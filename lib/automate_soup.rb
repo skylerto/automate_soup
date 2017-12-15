@@ -1,11 +1,14 @@
-require 'automate_soup/version'
+require 'automate_soup/api'
 require 'automate_soup/credentials'
+require 'automate_soup/rest'
+require 'automate_soup/version'
 
 ##
 # Top level module
 #
 module AutomateSoup
   class << self
+    attr_accessor :url, :credentials
     def setup(
       url: nil,
       username: nil,
@@ -13,15 +16,20 @@ module AutomateSoup
       password: nil
     )
       @url = url
-      @credentials = credentials username, token, password
+      @credentials = if token
+                       token_credentials(username, token)
+                     else
+                       password_credentials(username, password)
+                     end
+      @api = AutomateSoup::API.new(self)
+      self
+    end
+
+    def status
+      @api.status
     end
 
     private
-
-    def credentials(username, token, password)
-      return token_credentials(username, token) if token
-      password_credentials(username, password) if password
-    end
 
     def password_credentials(username, password)
       AutomateSoup::Credentials.new(
