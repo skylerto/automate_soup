@@ -12,4 +12,11 @@ RSpec.describe AutomateSoup::API do
   it 'should validate a status check' do
     expect(@soup.status).not_to be nil
   end
+
+  it 'should fetch organizations in a default enterprise' do
+    expect(@soup.orgs).not_to be nil
+    names = @soup.orgs.collect { |o| o['name'] }
+    expect(names).to include 'test'
+    expect(names).to include 'ford'
+  end
 end

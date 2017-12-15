@@ -41,6 +41,13 @@ module AutomateSoup
       @api.status
     end
 
+    ##
+    # Check the status of Automate
+    #
+    def orgs(enterprise = 'default')
+      @api.orgs enterprise
+    end
+
     private
 
     def password_credentials(username, password)
