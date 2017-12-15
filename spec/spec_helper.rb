@@ -1,5 +1,6 @@
 require "bundler/setup"
 require "automate_soup"
+require 'byebug'
 
 RSpec.configure do |config|
   # Enable flags like --only-failures and --next-failure

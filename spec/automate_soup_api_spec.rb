@@ -17,6 +17,13 @@ RSpec.describe AutomateSoup::API do
     expect(@soup.orgs).not_to be nil
     names = @soup.orgs.collect { |o| o['name'] }
     expect(names).to include 'test'
-    expect(names).to include 'ford'
+  end
+
+  it 'should fetch projects for an organization given a enterprise and an org' do
+    projects = @soup.projects(
+      organization: 'test'
+    )
+    puts projects
+    expect(projects).not_to be nil
   end
 end
