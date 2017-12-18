@@ -3,9 +3,9 @@ require 'byebug'
 
 module AutomateSoup
   ##
-  # Class to represent operations on a topic.
+  # Class to represent operations on a change.
   #
-  class Topic
+  class Change
     def initialize(hash)
       @source = OpenStruct.new hash
     end
@@ -32,7 +32,7 @@ module AutomateSoup
         username: AutomateSoup.credentials.username,
         token: AutomateSoup.credentials.token
       )
-      raise "Failed to approve topic: #{res.code}" if res.code != '204'
+      raise "Failed to approve change: #{res.code}" if res.code != '204'
       true
     end
 
@@ -47,7 +47,7 @@ module AutomateSoup
         username: AutomateSoup.credentials.username,
         token: AutomateSoup.credentials.token
       )
-      raise "Failed to deliver topic: #{res.code}" if res.code != '204'
+      raise "Failed to deliver change: #{res.code}" if res.code != '204'
       true
     end
   end

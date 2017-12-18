@@ -2,7 +2,7 @@ require 'automate_soup/api'
 require 'automate_soup/credentials'
 require 'automate_soup/rest'
 require 'automate_soup/stage'
-require 'automate_soup/topic'
+require 'automate_soup/change'
 require 'automate_soup/version'
 require 'ostruct'
 
@@ -119,7 +119,7 @@ module AutomateSoup
         project: project,
         pipeline: pipeline
       ).select { |p| p.topic.eql?(topic) }.first
-      AutomateSoup::Topic.new o
+      AutomateSoup::Change.new o
     end
 
     private

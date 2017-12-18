@@ -1,6 +1,6 @@
 require 'spec_helper'
 
-RSpec.describe AutomateSoup::Topic do
+RSpec.describe AutomateSoup::Change do
   before(:all) do
     @organization = ENV['AUTOMATE_ORG'] || 'test'
     @project = ENV['AUTOMATE_PROJECT'] || 'coffee_docker'
