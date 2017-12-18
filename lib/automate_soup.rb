@@ -56,10 +56,10 @@ module AutomateSoup
     end
 
     ##
-    # Fetch a project under an enterprise, organization pair
+    # Fetch all pipelines of a project under an enterprise, organization pair
     #
-    def project(enterprise: 'default', organization: nil, project: nil)
-      @api.project(enterprise: enterprise, organization: organization, project: project)
+    def pipelines(enterprise: 'default', organization: nil, project: nil)
+      @api.pipelines(enterprise: enterprise, organization: organization, project: project)
     end
 
     private
