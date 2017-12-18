@@ -22,7 +22,7 @@ RSpec.describe AutomateSoup::Topic do
       organization: @organization,
       project: @project,
       pipeline: @pipeline,
-      topic: 'foo'
+      topic: 'foobarbaz'
     ).stage
     expect(topic).not_to be nil
   end

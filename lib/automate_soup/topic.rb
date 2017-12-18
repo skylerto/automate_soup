@@ -1,4 +1,5 @@
 require 'ostruct'
+require 'byebug'
 
 module AutomateSoup
   ##
@@ -11,6 +12,10 @@ module AutomateSoup
 
     def method_missing(method, *args, &block)
       @source.send(method, *args, &block)
+    end
+
+    def stage
+      @source.stages.last
     end
   end
 end
