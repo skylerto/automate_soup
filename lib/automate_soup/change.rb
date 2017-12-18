@@ -9,18 +9,31 @@ module AutomateSoup
       @source = OpenStruct.new hash
     end
 
+    ##
+    # Delegate method missing to the underlying OpenStruct
+    #
     def method_missing(method, *args, &block)
       @source.send(method, *args, &block)
     end
 
+    ##
+    # Determing the current stage of the change.
+    # @return [AutomateSoup::Stage] the current stage.
     def current_stage
       Stage.new @source.stages.last
     end
 
+    ##
+    # Wrapper for the _links property on the struct
+    #
     def links
       @source._links
     end
 
+    ##
+    # Determine if the change has been delivered successfully.
+    #
+    # @return [Boolean] if this change is delivered
     def delivered?
       (current_stage.stage.eql?('delivered') &&
         current_stage.status.eql?('passed') &&
@@ -28,6 +41,10 @@ module AutomateSoup
         !AutomateSoup.credentials.nil?)
     end
 
+    ##
+    # Determine if the change is deliverable.
+    #
+    # @return [Boolean] if this change is deliverable
     def deliverable?
       (current_stage.stage.eql?('acceptance') &&
         current_stage.status.eql?('passed') &&
@@ -38,6 +55,10 @@ module AutomateSoup
         !links['deliver']['href'].nil?)
     end
 
+    ##
+    # Determine if the change is approvable.
+    #
+    # @return [Boolean] if this change is approvable
     def approvable?
       (current_stage.stage.eql?('verify') &&
         current_stage.status.eql?('passed') &&
@@ -48,6 +69,8 @@ module AutomateSoup
         !links['approve']['href'].nil?)
     end
 
+    ##
+    # Approve this change.
     def approve
       return nil if current_stage.stage != 'verify'
       raise 'Must run AutomateSoup.setup first' if AutomateSoup.url.nil? || AutomateSoup.credentials.nil?
@@ -62,6 +85,8 @@ module AutomateSoup
       true
     end
 
+    ##
+    # Deliver this change.
     def deliver
       raise 'Must approve change first' if current_stage.stage.eql? 'verify'
       return nil if current_stage.stage != 'acceptance'
