@@ -2,8 +2,11 @@ require "bundler/setup"
 require "automate_soup"
 require 'byebug'
 require 'simplecov'
+# Dir["lib/**/*.rb"].each {|file| puts file; puts load(file); }
+
 SimpleCov.start do
   coverage_dir 'docs/coverage'
+  add_filter '/spec/'
 end
 
 RSpec.configure do |config|
