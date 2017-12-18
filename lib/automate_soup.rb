@@ -42,17 +42,24 @@ module AutomateSoup
     end
 
     ##
-    # Check the status of Automate
+    # Fetch all organizations under an enterprise
     #
     def orgs(enterprise = 'default')
       @api.orgs enterprise
     end
 
     ##
-    # Check the status of Automate
+    # Fetch all projects under an enterprise, organization pair
     #
     def projects(enterprise: 'default', organization: nil)
       @api.projects(enterprise: enterprise, organization: organization)
+    end
+
+    ##
+    # Fetch a project under an enterprise, organization pair
+    #
+    def project(enterprise: 'default', organization: nil, project: nil)
+      @api.project(enterprise: enterprise, organization: organization, project: project)
     end
 
     private

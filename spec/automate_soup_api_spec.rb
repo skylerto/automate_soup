@@ -25,4 +25,12 @@ RSpec.describe AutomateSoup::API do
     )
     expect(projects).not_to be nil
   end
+
+  it 'should fetch a project for an organization given a enterprise and an org' do
+    project = @soup.project(
+      organization: 'test',
+      project: 'coffee_docker'
+    )
+    expect(project).not_to be nil
+  end
 end

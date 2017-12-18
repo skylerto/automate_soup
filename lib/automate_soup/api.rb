@@ -50,5 +50,12 @@ module AutomateSoup
     rescue JSON::ParserError
       raise "Failed to fetch projects under organization #{organization} enterprise #{enterprise}"
     end
+
+    ##
+    # Fetch a project under an enterprise, organization pair
+    #
+    def project(enterprise: 'default', organization: nil, project: nil)
+      nil
+    end
   end
 end
