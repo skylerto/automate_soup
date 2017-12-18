@@ -45,4 +45,24 @@ RSpec.describe AutomateSoup::API do
     )
     expect(pipeline).not_to be nil
   end
+
+  it 'should fetch all pipeline topics' do
+    topics = @soup.pipeline_topics(
+      organization: @organization,
+      project: @project,
+      pipeline: @pipeline
+    )
+    expect(topics).not_to be nil
+    expect(topics).not_to be_empty
+  end
+
+  it 'should fetch a pipeline topic' do
+    topic = @soup.topic(
+      organization: @organization,
+      project: @project,
+      pipeline: @pipeline,
+      topic: 'foo'
+    )
+    expect(topic).not_to be nil
+  end
 end
