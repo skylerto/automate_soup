@@ -11,7 +11,7 @@ Gem::Specification.new do |spec|
   spec.email         = ['skylerclayne@gmail.com']
 
   spec.summary       = 'Ruby API for interacting with Chef Automate'
-  spec.description   = File.read('./README.md')
+  spec.description   = 'Ruby API for interacting with Chef Automate'
   spec.homepage      = 'https://github.com/skylerto/automate_soup'
   spec.license       = 'MIT'
 
