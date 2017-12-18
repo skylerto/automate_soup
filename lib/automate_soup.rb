@@ -62,6 +62,13 @@ module AutomateSoup
       @api.pipelines(enterprise: enterprise, organization: organization, project: project)
     end
 
+    ##
+    # Fetch a pipeline of a project under an enterprise, organization pair
+    #
+    def pipeline(enterprise: 'default', organization: nil, project: nil, pipeline: nil)
+      @api.pipeline(enterprise: enterprise, organization: organization, project: project, pipeline: pipeline)
+    end
+
     private
 
     def password_credentials(username, password)

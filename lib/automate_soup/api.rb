@@ -79,5 +79,19 @@ module AutomateSoup
     rescue JSON::ParserError
       raise "Failed to fetch pipelines under organization #{organization} enterprise #{enterprise}"
     end
+
+    ##
+    # Fetch a project under an enterprise, organization pair
+    #
+    def pipeline(enterprise: 'default', organization: nil, project: nil, pipeline: nil)
+      @hash = AutomateSoup::Rest.get(
+        url: "#{@soup.url}/api/v0/e/#{enterprise}/orgs/#{organization}/projects/#{project}/changes?pipeline=#{pipeline}&limit=25",
+        username: @soup.credentials.username,
+        token: @soup.credentials.token
+      )
+
+    rescue JSON::ParserError
+      raise "Failed to fetch pipelines under organization #{organization} enterprise #{enterprise}"
+    end
   end
 end
