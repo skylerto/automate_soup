@@ -54,6 +54,11 @@ module AutomateSoup
     ##
     # Fetch a project under an enterprise, organization pair
     #
+    # @option enterprise [String] the enterprise to fetch org from, defaults to
+    # default.
+    # @option organization [String] the organization to fetch projects from.
+    # @option project [String] the organization to fetch projects from.
+    #
     def project(enterprise: 'default', organization: nil, project: nil)
       @hash = AutomateSoup::Rest.get(
         url: "#{@soup.url}/api/v0/e/#{enterprise}/orgs/#{organization}/projects/#{project}/pipelines",
@@ -66,7 +71,12 @@ module AutomateSoup
     end
 
     ##
-    # Fetch a project under an enterprise, organization pair
+    # Fetch all project pipelines under an enterprise, organization pair
+    #
+    # @option enterprise [String] the enterprise to fetch org from, defaults to
+    # default.
+    # @option organization [String] the organization to fetch pipelines from.
+    # @option project [String] the project to fetch pipelines from.
     #
     def pipelines(enterprise: 'default', organization: nil, project: nil)
       @hash = AutomateSoup::Rest.get(
@@ -81,7 +91,13 @@ module AutomateSoup
     end
 
     ##
-    # Fetch a project under an enterprise, organization pair
+    # Fetch a projects pipeline under an enterprise, organization pair
+    #
+    # @option enterprise [String] the enterprise to fetch org from, defaults to
+    # default.
+    # @option organization [String] the organization to fetch from.
+    # @option project [String] the project to fetch from.
+    # @option pipeline [String] the pipeline to fetch from.
     #
     def pipeline(enterprise: 'default', organization: nil, project: nil, pipeline: nil)
       @hash = AutomateSoup::Rest.get(
@@ -89,7 +105,6 @@ module AutomateSoup
         username: @soup.credentials.username,
         token: @soup.credentials.token
       )
-
     rescue JSON::ParserError
       raise "Failed to fetch pipelines under organization #{organization} enterprise #{enterprise}"
     end
