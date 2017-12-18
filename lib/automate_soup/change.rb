@@ -1,5 +1,4 @@
 require 'ostruct'
-require 'byebug'
 
 module AutomateSoup
   ##
@@ -20,6 +19,33 @@ module AutomateSoup
 
     def links
       @source._links
+    end
+
+    def delivered?
+      (current_stage.stage.eql?('delivered') &&
+        current_stage.status.eql?('passed') &&
+        !AutomateSoup.url.nil? &&
+        !AutomateSoup.credentials.nil?)
+    end
+
+    def deliverable?
+      (current_stage.stage.eql?('acceptance') &&
+        current_stage.status.eql?('passed') &&
+        !AutomateSoup.url.nil? &&
+        !AutomateSoup.credentials.nil? &&
+        !links.nil? &&
+        !links['deliver'].nil? &&
+        !links['deliver']['href'].nil?)
+    end
+
+    def approvable?
+      (current_stage.stage.eql?('verify') &&
+        current_stage.status.eql?('passed') &&
+        !AutomateSoup.url.nil? &&
+        !AutomateSoup.credentials.nil? &&
+        !links.nil? &&
+        !links['approve'].nil? &&
+        !links['approve']['href'].nil?)
     end
 
     def approve

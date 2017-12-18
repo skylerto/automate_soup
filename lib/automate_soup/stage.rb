@@ -17,5 +17,9 @@ module AutomateSoup
     def passed?
       @source.status.eql? 'passed'
     end
+
+    def failed?
+      @source.status.eql? 'failed'
+    end
   end
 end

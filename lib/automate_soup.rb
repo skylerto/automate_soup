@@ -111,6 +111,7 @@ module AutomateSoup
     # @option organization [String] the organization to fetch from.
     # @option project [String] the project to fetch from.
     # @option pipeline [String] the pipeline to fetch from.
+    # @option topic [String] the topic to fetch a change from.
     #
     def change_by_topic(enterprise: @enterprise, organization: @organization, project: @project, pipeline: @pipeline, topic: nil)
       o = self.pipeline(
@@ -120,6 +121,128 @@ module AutomateSoup
         pipeline: pipeline
       ).select { |p| p.topic.eql?(topic) }.first
       AutomateSoup::Change.new o
+    end
+
+    ##
+    # Approve a change by change topic.
+    #
+    # @option enterprise [String] the enterprise to fetch org from, defaults to
+    # default.
+    # @option organization [String] the organization to fetch from.
+    # @option project [String] the project to fetch from.
+    # @option pipeline [String] the pipeline to fetch from.
+    # @option topic [String] the change topic to approve
+    # @option wait [Boolean] to wait for the approval stages to complete.
+    # @option timeout [Integer] the time in seconds to wait between requests defaults
+    # to 10
+    # @option retries [Integer] the amount of retries to make, defaults to 5
+    #
+    def approve_change(enterprise: @enterprise, organization: @organization, project: @project, pipeline: @pipeline, topic: nil, wait: false, timeout: 10, retries: 5)
+      o = self.change_by_topic(
+        enterprise: enterprise,
+        organization: organization,
+        project: project,
+        pipeline: pipeline,
+        topic: topic
+      )
+      if wait && !o.approvable? && !o.deliverable?
+        times = 1
+        while times <= retries
+          o = self.change_by_topic(
+            enterprise: enterprise,
+            organization: organization,
+            project: project,
+            pipeline: pipeline,
+            topic: topic
+          )
+          break if o.approvable?
+          return false if o.current_stage.failed?
+          puts "Stage #{o.current_stage.stage}: #{o.current_stage.status} retries #{times}/#{retries}"
+          sleep timeout
+          times += 1
+        end
+      end
+
+      o.approve
+      return true if !wait && o.deliverable?
+      times = 1
+      while times <= retries
+        o = self.change_by_topic(
+          enterprise: enterprise,
+          organization: organization,
+          project: project,
+          pipeline: pipeline,
+          topic: topic
+        )
+        break if o.deliverable?
+        return false if o.current_stage.failed?
+        puts "Stage #{o.current_stage.stage}: #{o.current_stage.status} retries #{times}/#{retries}"
+        times += 1
+        sleep timeout
+      end
+      true
+    end
+
+
+    ##
+    # Delivery a change by a topic
+    #
+    # @option enterprise [String] the enterprise to fetch org from, defaults to
+    # default.
+    # @option organization [String] the organization to fetch from.
+    # @option project [String] the project to fetch from.
+    # @option pipeline [String] the pipeline to fetch from.
+    # @option topic [String] the change topic to approve
+    # @option wait [Boolean] to wait for the approval stages to complete.
+    # @option timeout [Integer] the time in seconds to wait between requests defaults
+    # to 10
+    # @option retries [Integer] the amount of retries to make, defaults to 5
+    #
+    def deliver_change(enterprise: @enterprise, organization: @organization, project: @project, pipeline: @pipeline, topic: nil, wait: false, timeout: 10, retries: 5)
+      o = self.change_by_topic(
+        enterprise: enterprise,
+        organization: organization,
+        project: project,
+        pipeline: pipeline,
+        topic: topic
+      )
+      return false if !o.deliverable?
+      if wait && !o.deliverable?
+        times = 1
+        while times <= retries
+          o = self.change_by_topic(
+            enterprise: enterprise,
+            organization: organization,
+            project: project,
+            pipeline: pipeline,
+            topic: topic
+          )
+          break if o.deliverable?
+          return false if o.current_stage.failed?
+          puts "Stage #{o.current_stage.stage}: #{o.current_stage.status} retries #{times}/#{retries}"
+          sleep timeout
+          times += 1
+        end
+      end
+
+      o.deliver
+      return true if !wait && o.delivered?
+      times = 1
+      while times <= retries
+        o = self.change_by_topic(
+          enterprise: enterprise,
+          organization: organization,
+          project: project,
+          pipeline: pipeline,
+          topic: topic
+        )
+        break if o.delivered?
+        return false if o.current_stage.failed?
+        puts "Stage #{o.current_stage.stage}: #{o.current_stage.status} retries #{times}/#{retries}"
+        times += 1
+        sleep timeout
+      end
+      true
     end
 
     private

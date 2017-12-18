@@ -65,4 +65,26 @@ RSpec.describe AutomateSoup::API do
     )
     expect(topic).not_to be nil
   end
+
+  it 'should approve a pipeline change' do
+    topic = @soup.approve_change(
+      organization: @organization,
+      project: @project,
+      pipeline: @pipeline,
+      topic: 'blahblahblah',
+      wait: true
+    )
+    expect(topic).not_to be nil
+  end
+
+  it 'should deliver a pipeline change' do
+    topic = @soup.deliver_change(
+      organization: @organization,
+      project: @project,
+      pipeline: @pipeline,
+      topic: 'blahblahblah',
+      wait: true
+    )
+    expect(topic).not_to be nil
+  end
 end
