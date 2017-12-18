@@ -11,7 +11,7 @@ require 'ostruct'
 #
 module AutomateSoup
   class << self
-    attr_accessor :url, :credentials
+    attr_accessor :url, :credentials, :api, :enterprise, :organization, :project, :pipeline
 
     ##
     # Setup Automate Soup client.
@@ -25,7 +25,11 @@ module AutomateSoup
       url: nil,
       username: nil,
       token: nil,
-      password: nil
+      password: nil,
+      enterprise: 'default',
+      organization: nil,
+      project: nil,
+      pipeline: nil
     )
       @url = url
       @credentials = if token
@@ -34,6 +38,10 @@ module AutomateSoup
                        password_credentials(username, password)
                      end
       @api = AutomateSoup::API.new(self)
+      @enterprise = enterprise
+      @organization = organization
+      @project = project
+      @pipeline = pipeline
       self
     end
 
@@ -104,7 +112,7 @@ module AutomateSoup
     # @option project [String] the project to fetch from.
     # @option pipeline [String] the pipeline to fetch from.
     #
-    def topic(enterprise: 'default', organization: nil, project: nil, pipeline: nil, topic: nil)
+    def topic(enterprise: @enterprise, organization: @organization, project: @project, pipeline: @pipeline, topic: nil)
       o = @api.pipeline(
         enterprise: enterprise,
         organization: organization,
