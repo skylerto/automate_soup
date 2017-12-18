@@ -83,7 +83,87 @@ Automate.</p>
 
 <h2 id="label-Usage">Usage</h2>
 
-<p>TODO: Write usage instructions here</p>
+<h3 id="label-Setting+up+the+Client">Setting up the Client</h3>
+
+<p>You can setup the client in a generic way via:</p>
+
+<pre class="code ruby"><code class="ruby"><span class='id identifier rubyid_soup'>soup</span> <span class='op'>=</span> <span class='const'><span class='object_link'><a href="AutomateSoup.html" title="AutomateSoup (module)">AutomateSoup</a></span></span><span class='period'>.</span><span class='id identifier rubyid_setup'><span class='object_link'><a href="AutomateSoup.html#setup-class_method" title="AutomateSoup.setup (method)">setup</a></span></span><span class='lparen'>(</span>
+  <span class='label'>url:</span> <span class='const'>ENV</span><span class='lbracket'>[</span><span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>AUTOMATE_URL</span><span class='tstring_end'>&#39;</span></span><span class='rbracket'>]</span><span class='comma'>,</span>
+  <span class='label'>username:</span> <span class='const'>ENV</span><span class='lbracket'>[</span><span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>AUTOMATE_USERNAME</span><span class='tstring_end'>&#39;</span></span><span class='rbracket'>]</span><span class='comma'>,</span>
+  <span class='label'>token:</span> <span class='const'>ENV</span><span class='lbracket'>[</span><span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>AUTOMATE_TOKEN</span><span class='tstring_end'>&#39;</span></span><span class='rbracket'>]</span>
+<span class='rparen'>)</span>
+</code></pre>
+
+<p>You can also setup the client with an enterprise, organization, project,
+and pipeline via:</p>
+
+<pre class="code ruby"><code class="ruby"><span class='id identifier rubyid_soup'>soup</span> <span class='op'>=</span> <span class='const'><span class='object_link'><a href="AutomateSoup.html" title="AutomateSoup (module)">AutomateSoup</a></span></span><span class='period'>.</span><span class='id identifier rubyid_setup'><span class='object_link'><a href="AutomateSoup.html#setup-class_method" title="AutomateSoup.setup (method)">setup</a></span></span><span class='lparen'>(</span>
+  <span class='label'>url:</span> <span class='const'>ENV</span><span class='lbracket'>[</span><span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>AUTOMATE_URL</span><span class='tstring_end'>&#39;</span></span><span class='rbracket'>]</span><span class='comma'>,</span>
+  <span class='label'>username:</span> <span class='const'>ENV</span><span class='lbracket'>[</span><span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>AUTOMATE_USERNAME</span><span class='tstring_end'>&#39;</span></span><span class='rbracket'>]</span><span class='comma'>,</span>
+  <span class='label'>token:</span> <span class='const'>ENV</span><span class='lbracket'>[</span><span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>AUTOMATE_TOKEN</span><span class='tstring_end'>&#39;</span></span><span class='rbracket'>]</span><span class='comma'>,</span>
+  <span class='label'>organization:</span> <span class='id identifier rubyid_organization'>organization</span><span class='comma'>,</span>
+  <span class='label'>project:</span> <span class='id identifier rubyid_project'>project</span><span class='comma'>,</span>
+  <span class='label'>pipeline:</span> <span class='id identifier rubyid_pipeline'>pipeline</span>
+<span class='rparen'>)</span>
+</code></pre>
+
+<h3 id="label-Fetching+Changes">Fetching Changes</h3>
+
+<pre class="code ruby"><code class="ruby"><span class='comment'># To fetch an array of pipeline change topic names
+</span><span class='id identifier rubyid_changes'>changes</span> <span class='op'>=</span> <span class='id identifier rubyid_soup'>soup</span><span class='period'>.</span><span class='id identifier rubyid_pipeline_topics'>pipeline_topics</span><span class='lparen'>(</span>
+  <span class='label'>organization:</span> <span class='id identifier rubyid_organization'>organization</span><span class='comma'>,</span>
+  <span class='label'>project:</span> <span class='id identifier rubyid_project'>project</span><span class='comma'>,</span>
+  <span class='label'>pipeline:</span> <span class='id identifier rubyid_pipeline'>pipeline</span>
+<span class='rparen'>)</span>
+
+<span class='comment'># To fetch a specific change via a topic
+</span><span class='id identifier rubyid_change'>change</span> <span class='op'>=</span> <span class='id identifier rubyid_soup'>soup</span><span class='period'>.</span><span class='id identifier rubyid_change_by_topic'>change_by_topic</span><span class='lparen'>(</span>
+  <span class='label'>organization:</span> <span class='id identifier rubyid_organization'>organization</span><span class='comma'>,</span>
+  <span class='label'>project:</span> <span class='id identifier rubyid_project'>project</span><span class='comma'>,</span>
+  <span class='label'>pipeline:</span> <span class='id identifier rubyid_pipeline'>pipeline</span><span class='comma'>,</span>
+  <span class='label'>topic:</span> <span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>blahblahblah</span><span class='tstring_end'>&#39;</span></span>
+<span class='rparen'>)</span>
+
+<span class='id identifier rubyid_change'>change</span> <span class='op'>=</span> <span class='id identifier rubyid_soup'>soup</span><span class='period'>.</span><span class='id identifier rubyid_change_by_topic'>change_by_topic</span><span class='lparen'>(</span>
+  <span class='label'>topic:</span> <span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>blahblahblah</span><span class='tstring_end'>&#39;</span></span>
+<span class='rparen'>)</span>
+</code></pre>
+
+<h3 id="label-Approving+Changes">Approving Changes</h3>
+
+<pre class="code ruby"><code class="ruby"><span class='comment'># If you used the first way to setup the client
+</span><span class='id identifier rubyid_soup'>soup</span><span class='period'>.</span><span class='id identifier rubyid_approve_change'>approve_change</span><span class='lparen'>(</span>
+  <span class='label'>organization:</span> <span class='id identifier rubyid_organization'>organization</span><span class='comma'>,</span>
+  <span class='label'>project:</span> <span class='id identifier rubyid_project'>project</span><span class='comma'>,</span>
+  <span class='label'>pipeline:</span> <span class='id identifier rubyid_pipeline'>pipeline</span><span class='comma'>,</span>
+  <span class='label'>topic:</span> <span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>blahblahblah</span><span class='tstring_end'>&#39;</span></span><span class='comma'>,</span>
+  <span class='label'>wait:</span> <span class='kw'>true</span>
+<span class='rparen'>)</span>
+
+<span class='comment'># If you used the second
+</span><span class='id identifier rubyid_soup'>soup</span><span class='period'>.</span><span class='id identifier rubyid_approve_change'>approve_change</span><span class='lparen'>(</span>
+  <span class='label'>topic:</span> <span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>blahblahblah</span><span class='tstring_end'>&#39;</span></span><span class='comma'>,</span>
+  <span class='label'>wait:</span> <span class='kw'>true</span>
+<span class='rparen'>)</span>
+</code></pre>
+
+<h3 id="label-Delivering+Changes">Delivering Changes</h3>
+
+<pre class="code ruby"><code class="ruby"><span class='comment'># If you used the first way to setup the client
+</span><span class='id identifier rubyid_soup'>soup</span><span class='period'>.</span><span class='id identifier rubyid_deliver_change'>deliver_change</span><span class='lparen'>(</span>
+  <span class='label'>organization:</span> <span class='id identifier rubyid_organization'>organization</span><span class='comma'>,</span>
+  <span class='label'>project:</span> <span class='id identifier rubyid_project'>project</span><span class='comma'>,</span>
+  <span class='label'>pipeline:</span> <span class='id identifier rubyid_pipeline'>pipeline</span><span class='comma'>,</span>
+  <span class='label'>topic:</span> <span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>blahblahblah</span><span class='tstring_end'>&#39;</span></span><span class='comma'>,</span>
+  <span class='label'>wait:</span> <span class='kw'>true</span>
+<span class='rparen'>)</span>
+
+<span class='comment'># If you used the second
+</span><span class='id identifier rubyid_soup'>soup</span><span class='period'>.</span><span class='id identifier rubyid_deliver_change'>deliver_change</span><span class='lparen'>(</span>
+  <span class='label'>topic:</span> <span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>blahblahblah</span><span class='tstring_end'>&#39;</span></span><span class='comma'>,</span>
+  <span class='label'>wait:</span> <span class='kw'>true</span>
+<span class='rparen'>)</span>
+</code></pre>
 
 <h2 id="label-Development">Development</h2>
 
@@ -121,7 +201,7 @@ conduct[https://github.com/[USERNAME]/automate_soup/blob/master/CODE_OF_CONDUCT.
 </div></div>
 
       <div id="footer">
-  Generated on Mon Dec 18 14:46:09 2017 by
+  Generated on Mon Dec 18 14:46:35 2017 by
   <a href="http://yardoc.org" title="Yay! A Ruby Documentation Tool" target="_parent">yard</a>
   0.9.9 (ruby-2.4.1).
 </div>
