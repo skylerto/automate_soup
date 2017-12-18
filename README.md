@@ -22,7 +22,92 @@ Or install it yourself as:
 
 ## Usage
 
-TODO: Write usage instructions here
+### Setting up the Client
+
+You can setup the client in a generic way via:
+
+``` ruby
+soup = AutomateSoup.setup(
+  url: ENV['AUTOMATE_URL'],
+  username: ENV['AUTOMATE_USERNAME'],
+  token: ENV['AUTOMATE_TOKEN']
+)
+```
+
+You can also setup the client with an enterprise, organization, project, and
+pipeline via:
+
+``` ruby
+soup = AutomateSoup.setup(
+  url: ENV['AUTOMATE_URL'],
+  username: ENV['AUTOMATE_USERNAME'],
+  token: ENV['AUTOMATE_TOKEN'],
+  organization: organization,
+  project: project,
+  pipeline: pipeline
+)
+```
+
+### Fetching Changes
+
+``` ruby
+# To fetch an array of pipeline change topic names
+changes = soup.pipeline_topics(
+  organization: organization,
+  project: project,
+  pipeline: pipeline
+)
+
+# To fetch a specific change via a topic
+change = soup.change_by_topic(
+  organization: organization,
+  project: project,
+  pipeline: pipeline,
+  topic: 'blahblahblah'
+)
+
+change = soup.change_by_topic(
+  topic: 'blahblahblah'
+)
+```
+
+### Approving Changes
+
+``` ruby
+# If you used the first way to setup the client
+soup.approve_change(
+  organization: organization,
+  project: project,
+  pipeline: pipeline,
+  topic: 'blahblahblah',
+  wait: true
+)
+
+# If you used the second
+soup.approve_change(
+  topic: 'blahblahblah',
+  wait: true
+)
+```
+
+### Delivering Changes
+
+``` ruby
+# If you used the first way to setup the client
+soup.deliver_change(
+  organization: organization,
+  project: project,
+  pipeline: pipeline,
+  topic: 'blahblahblah',
+  wait: true
+)
+
+# If you used the second
+soup.deliver_change(
+  topic: 'blahblahblah',
+  wait: true
+)
+```
 
 ## Development
 
