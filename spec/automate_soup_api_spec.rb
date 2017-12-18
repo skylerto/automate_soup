@@ -7,6 +7,9 @@ RSpec.describe AutomateSoup::API do
       username: ENV['AUTOMATE_USERNAME'],
       token: ENV['AUTOMATE_TOKEN']
     )
+    @organization = ENV['AUTOMATE_ORG'] || 'test'
+    @project = ENV['AUTOMATE_PROJECT'] || 'coffee_docker'
+    @pipeline = ENV['AUTOMATE_PIPELINE'] || 'master'
   end
 
   it 'should validate a status check' do
@@ -21,8 +24,45 @@ RSpec.describe AutomateSoup::API do
 
   it 'should fetch projects for an organization given a enterprise and an org' do
     projects = @soup.projects(
-      organization: 'test'
+      organization: @organization
     )
     expect(projects).not_to be nil
+  end
+
+  it 'should fetch a projects pipelines for an organization given a enterprise and an org' do
+    pipelines = @soup.pipelines(
+      organization: @organization,
+      project: @project
+    )
+    expect(pipelines).not_to be nil
+  end
+
+  it 'should fetch a projects pipeline changes for an organization given a enterprise and an org' do
+    pipeline = @soup.pipeline(
+      organization: @organization,
+      project: @project,
+      pipeline: @pipeline
+    )
+    expect(pipeline).not_to be nil
+  end
+
+  it 'should fetch all pipeline topics' do
+    topics = @soup.pipeline_topics(
+      organization: @organization,
+      project: @project,
+      pipeline: @pipeline
+    )
+    expect(topics).not_to be nil
+    expect(topics).not_to be_empty
+  end
+
+  it 'should fetch a pipeline topic' do
+    topic = @soup.topic(
+      organization: @organization,
+      project: @project,
+      pipeline: @pipeline,
+      topic: 'foo'
+    )
+    expect(topic).not_to be nil
   end
 end
