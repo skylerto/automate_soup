@@ -13,7 +13,7 @@ RSpec.describe AutomateSoup::Topic do
       project: @project,
       pipeline: @pipeline
     )
-    @topic = @soup.topic(
+    @topic = @soup.change_by_topic(
       topic: 'foobarbaz'
     )
   end

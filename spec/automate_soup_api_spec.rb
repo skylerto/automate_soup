@@ -57,7 +57,7 @@ RSpec.describe AutomateSoup::API do
   end
 
   it 'should fetch a pipeline topic' do
-    topic = @soup.topic(
+    topic = @soup.change_by_topic(
       organization: @organization,
       project: @project,
       pipeline: @pipeline,

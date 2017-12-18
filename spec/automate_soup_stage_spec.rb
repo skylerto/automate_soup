@@ -10,7 +10,7 @@ RSpec.describe AutomateSoup::Stage do
     @organization = ENV['AUTOMATE_ORG'] || 'test'
     @project = ENV['AUTOMATE_PROJECT'] || 'coffee_docker'
     @pipeline = ENV['AUTOMATE_PIPELINE'] || 'master'
-    @topic = @soup.topic(
+    @topic = @soup.change_by_topic(
       organization: @organization,
       project: @project,
       pipeline: @pipeline,

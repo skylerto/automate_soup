@@ -86,7 +86,7 @@ module AutomateSoup
     end
 
     ##
-    # Filters out the topics from the topics from the pipelines.
+    # Filters out the topics from the pipelines changes .
     #
     # @option enterprise [String] the enterprise to fetch org from, defaults to
     # default.
@@ -104,7 +104,7 @@ module AutomateSoup
     end
 
     ##
-    # Filters out the topics from the topics from the pipelines.
+    # Find a change by topic.
     #
     # @option enterprise [String] the enterprise to fetch org from, defaults to
     # default.
@@ -112,13 +112,13 @@ module AutomateSoup
     # @option project [String] the project to fetch from.
     # @option pipeline [String] the pipeline to fetch from.
     #
-    def topic(enterprise: @enterprise, organization: @organization, project: @project, pipeline: @pipeline, topic: nil)
-      o = @api.pipeline(
+    def change_by_topic(enterprise: @enterprise, organization: @organization, project: @project, pipeline: @pipeline, topic: nil)
+      o = self.pipeline(
         enterprise: enterprise,
         organization: organization,
         project: project,
         pipeline: pipeline
-      ).select{ |p| p['topic'].eql?(topic) }.first
+      ).select { |p| p.topic.eql?(topic) }.first
       AutomateSoup::Topic.new o
     end
 
