@@ -1,6 +1,7 @@
 require 'automate_soup/api'
 require 'automate_soup/credentials'
 require 'automate_soup/rest'
+require 'automate_soup/stage'
 require 'automate_soup/topic'
 require 'automate_soup/version'
 require 'ostruct'

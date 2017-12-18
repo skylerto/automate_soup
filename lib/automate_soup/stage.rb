@@ -3,9 +3,9 @@ require 'byebug'
 
 module AutomateSoup
   ##
-  # Class to represent operations on a topic.
+  # Class to represent operations on a stage.
   #
-  class Topic
+  class Stage
     def initialize(hash)
       @source = OpenStruct.new hash
     end
@@ -14,8 +14,8 @@ module AutomateSoup
       @source.send(method, *args, &block)
     end
 
-    def current_stage
-      Stage.new @source.stages.last
+    def passed?
+      @source.status.eql? 'passed'
     end
   end
 end

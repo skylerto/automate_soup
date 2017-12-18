@@ -1,6 +1,10 @@
 require "bundler/setup"
 require "automate_soup"
 require 'byebug'
+require 'simplecov'
+SimpleCov.start do
+  coverage_dir 'docs/coverage'
+end
 
 RSpec.configure do |config|
   # Enable flags like --only-failures and --next-failure

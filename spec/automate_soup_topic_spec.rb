@@ -10,20 +10,16 @@ RSpec.describe AutomateSoup::Topic do
     @organization = ENV['AUTOMATE_ORG'] || 'test'
     @project = ENV['AUTOMATE_PROJECT'] || 'coffee_docker'
     @pipeline = ENV['AUTOMATE_PIPELINE'] || 'master'
-    @topics = @soup.pipeline_topics(
-      organization: @organization,
-      project: @project,
-      pipeline: @pipeline
-    )
-  end
-
-  it 'should determine the topic stage' do
-    topic = @soup.topic(
+    @topic = @soup.topic(
       organization: @organization,
       project: @project,
       pipeline: @pipeline,
       topic: 'foobarbaz'
-    ).stage
+    )
+  end
+
+  it 'should determine the topic stage' do
+    topic = @topic.current_stage
     expect(topic).not_to be nil
   end
 end
