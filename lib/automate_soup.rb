@@ -47,32 +47,32 @@ module AutomateSoup
     # Fetch all organizations under an enterprise
     #
     def orgs(enterprise = 'default')
-      o = @api.orgs enterprise
-      OpenStruct.new o
+      @api.orgs enterprise
     end
 
     ##
     # Fetch all projects under an enterprise, organization pair
     #
     def projects(enterprise: 'default', organization: nil)
-      o = @api.projects(enterprise: enterprise, organization: organization)
-      OpenStruct.new o
+      @api.projects(enterprise: enterprise, organization: organization)
     end
 
     ##
     # Fetch all pipelines of a project under an enterprise, organization pair
     #
     def pipelines(enterprise: 'default', organization: nil, project: nil)
-      o = @api.pipelines(enterprise: enterprise, organization: organization, project: project)
-      OpenStruct.new o
+      @api.pipelines(enterprise: enterprise, organization: organization, project: project)
     end
 
     ##
     # Fetch a pipeline of a project under an enterprise, organization pair.
     #
     def pipeline(enterprise: 'default', organization: nil, project: nil, pipeline: nil)
-      o = @api.pipeline(enterprise: enterprise, organization: organization, project: project, pipeline: pipeline)
-      OpenStruct.new o
+      arr = []
+      @api.pipeline(enterprise: enterprise, organization: organization, project: project, pipeline: pipeline).each do |o|
+        arr << OpenStruct.new(o)
+      end
+      arr
     end
 
     ##
@@ -85,12 +85,12 @@ module AutomateSoup
     # @option pipeline [String] the pipeline to fetch from.
     #
     def pipeline_topics(enterprise: 'default', organization: nil, project: nil, pipeline: nil)
-      @api.pipeline(
+      self.pipeline(
         enterprise: enterprise,
         organization: organization,
         project: project,
         pipeline: pipeline
-      ).map { |p| p['topic'] }
+      ).map { |p| p.topic }
     end
 
     ##
