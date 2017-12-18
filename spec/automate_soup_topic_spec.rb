@@ -25,7 +25,6 @@ RSpec.describe AutomateSoup::Topic do
 
   it 'should approve a change or return nil if it cannot' do
     topic = @topic
-    byebug
     approve = topic.approve
     if approve.nil?
       expect(topic.current_stage.stage).not_to be nil
