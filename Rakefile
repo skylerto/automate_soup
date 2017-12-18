@@ -6,5 +6,5 @@ RSpec::Core::RakeTask.new(:spec)
 task :default => :spec
 
 task :doc do
-  `bundle exec yard --output-dir docs`
+  puts `bundle exec yard --output-dir docs`
 end
