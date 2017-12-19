@@ -70,11 +70,13 @@ module AutomateSoup
     end
 
     ##
-    # Approve this change.
+    # Approve this change. Raise exceptions where applicable.
+    #
+    # @return [Boolean] true if the change was approved, false otherwise.
     def approve
-      return nil if current_stage.stage != 'verify'
+      return false if current_stage.stage != 'verify'
       raise 'Must run AutomateSoup.setup first' if AutomateSoup.url.nil? || AutomateSoup.credentials.nil?
-      raise 'Approve link not available' if links.nil? || links['approve'].nil? || links['approve']['href'].nil?
+      raise "Approve link not available, #{links.inspect}" if links.nil? || links['approve'].nil? || links['approve']['href'].nil?
       url = "#{AutomateSoup.url}#{links['approve']['href']}"
       res = AutomateSoup::Rest.post(
         url: url,
@@ -86,12 +88,14 @@ module AutomateSoup
     end
 
     ##
-    # Deliver this change.
+    # Deliver this change. Raise exceptions where applicable.
+    #
+    # @return [Boolean] true if the change was delivered, false otherwise.
     def deliver
       raise 'Must approve change first' if current_stage.stage.eql? 'verify'
-      return nil if current_stage.stage != 'acceptance'
+      return false if current_stage.stage != 'acceptance'
       raise 'Must run AutomateSoup.setup first' if AutomateSoup.url.nil? || AutomateSoup.credentials.nil?
-      raise 'Deliver link not available' if links.nil? || links['deliver'].nil? || links['deliver']['href'].nil?
+      raise "Deliver link not available, #{links.inspect}" if links.nil? || links['deliver'].nil? || links['deliver']['href'].nil?
       url = "#{AutomateSoup.url}#{links['deliver']['href']}"
       res = AutomateSoup::Rest.post(
         url: url,
