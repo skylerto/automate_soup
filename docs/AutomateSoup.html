@@ -115,7 +115,7 @@
       <dt id="VERSION-constant" class="">VERSION =
         
       </dt>
-      <dd><pre class="code"><span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>0.1.0</span><span class='tstring_end'>&quot;</span></span></pre></dd>
+      <dd><pre class="code"><span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>0.1.3</span><span class='tstring_end'>&quot;</span></span></pre></dd>
     
   </dl>
 
@@ -254,7 +254,7 @@
 
   
     <span class="summary_desc"><div class='inline'>
-<p>Fetch a pipeline of a project under an enterprise, organization pair.</p>
+<p>Fetch a projects pipeline under an enterprise, organization pair.</p>
 </div></span>
   
 </li>
@@ -330,7 +330,7 @@
         <li class="public ">
   <span class="summary_signature">
     
-      <a href="#approve_change-class_method" title="approve_change (class method)">.<strong>approve_change</strong>(enterprise: @enterprise, organization: @organization, project: @project, pipeline: @pipeline, topic: nil, wait: false, timeout: 10, retries: 5)  &#x21d2; Object </a>
+      <a href="#approve_change-class_method" title="approve_change (class method)">.<strong>approve_change</strong>(enterprise: @enterprise, organization: @organization, project: @project, pipeline: @pipeline, topic: nil, wait: false, timeout: 10, retries: 5)  &#x21d2; Boolean </a>
     
 
     
@@ -354,7 +354,7 @@
         <li class="public ">
   <span class="summary_signature">
     
-      <a href="#change_by_topic-class_method" title="change_by_topic (class method)">.<strong>change_by_topic</strong>(enterprise: @enterprise, organization: @organization, project: @project, pipeline: @pipeline, topic: nil)  &#x21d2; Object </a>
+      <a href="#change_by_topic-class_method" title="change_by_topic (class method)">.<strong>change_by_topic</strong>(enterprise: @enterprise, organization: @organization, project: @project, pipeline: @pipeline, topic: nil)  &#x21d2; AutomateSoup::Change </a>
     
 
     
@@ -378,7 +378,7 @@
         <li class="public ">
   <span class="summary_signature">
     
-      <a href="#deliver_change-class_method" title="deliver_change (class method)">.<strong>deliver_change</strong>(enterprise: @enterprise, organization: @organization, project: @project, pipeline: @pipeline, topic: nil, wait: false, timeout: 10, retries: 5)  &#x21d2; Object </a>
+      <a href="#deliver_change-class_method" title="deliver_change (class method)">.<strong>deliver_change</strong>(enterprise: @enterprise, organization: @organization, project: @project, pipeline: @pipeline, topic: nil, wait: false, timeout: 10, retries: 5)  &#x21d2; Boolean </a>
     
 
     
@@ -426,7 +426,7 @@
         <li class="public ">
   <span class="summary_signature">
     
-      <a href="#pipeline_topics-class_method" title="pipeline_topics (class method)">.<strong>pipeline_topics</strong>(enterprise: &#39;default&#39;, organization: nil, project: nil, pipeline: nil)  &#x21d2; Object </a>
+      <a href="#pipeline_topics-class_method" title="pipeline_topics (class method)">.<strong>pipeline_topics</strong>(enterprise: &#39;default&#39;, organization: nil, project: nil, pipeline: nil)  &#x21d2; Array </a>
     
 
     
@@ -465,7 +465,7 @@
 
   
     <span class="summary_desc"><div class='inline'>
-<p>Fetch all pipelines of a project under an enterprise, organization pair.</p>
+<p>Fetch all project pipelines under an enterprise, organization pair.</p>
 </div></span>
   
 </li>
@@ -489,7 +489,7 @@
 
   
     <span class="summary_desc"><div class='inline'>
-<p>Fetch all projects under an enterprise, organization pair.</p>
+<p>Get the projects under and organization given the enterprise.</p>
 </div></span>
   
 </li>
@@ -736,13 +736,165 @@
 </h3><div class="docstring">
   <div class="discussion">
     
-<p>Fetch a pipeline of a project under an enterprise, organization pair.</p>
+<p>Fetch a projects pipeline under an enterprise, organization pair</p>
+
+<p>default.</p>
 
 
   </div>
 </div>
 <div class="tags">
+  <p class="tag_title">Parameters:</p>
+<ul class="param">
   
+    <li>
+      
+        <span class='name'>enterprise</span>
+      
+      
+        <span class='type'>(<tt>Hash</tt>)</span>
+      
+      
+      
+        &mdash;
+        <div class='inline'>
+<p>a customizable set of options</p>
+</div>
+      
+    </li>
+  
+    <li>
+      
+        <span class='name'>organization</span>
+      
+      
+        <span class='type'>(<tt>Hash</tt>)</span>
+      
+      
+      
+        &mdash;
+        <div class='inline'>
+<p>a customizable set of options</p>
+</div>
+      
+    </li>
+  
+    <li>
+      
+        <span class='name'>project</span>
+      
+      
+        <span class='type'>(<tt>Hash</tt>)</span>
+      
+      
+      
+        &mdash;
+        <div class='inline'>
+<p>a customizable set of options</p>
+</div>
+      
+    </li>
+  
+    <li>
+      
+        <span class='name'>pipeline</span>
+      
+      
+        <span class='type'>(<tt>Hash</tt>)</span>
+      
+      
+      
+        &mdash;
+        <div class='inline'>
+<p>a customizable set of options</p>
+</div>
+      
+    </li>
+  
+</ul>
+
+  
+    
+    
+    <p class="tag_title">Options Hash (<tt>enterprise:</tt>):</p>
+    <ul class="option">
+      
+        <li>
+          <span class="name">the</span>
+          <span class="type">(<tt>String</tt>)</span>
+          <span class="default">
+            
+          </span>
+          
+            &mdash; <div class='inline'>
+<p>enterprise to fetch org from, defaults to</p>
+</div>
+          
+        </li>
+      
+    </ul>
+  
+    
+    
+    <p class="tag_title">Options Hash (<tt>organization:</tt>):</p>
+    <ul class="option">
+      
+        <li>
+          <span class="name">the</span>
+          <span class="type">(<tt>String</tt>)</span>
+          <span class="default">
+            
+          </span>
+          
+            &mdash; <div class='inline'>
+<p>organization to fetch from.</p>
+</div>
+          
+        </li>
+      
+    </ul>
+  
+    
+    
+    <p class="tag_title">Options Hash (<tt>project:</tt>):</p>
+    <ul class="option">
+      
+        <li>
+          <span class="name">the</span>
+          <span class="type">(<tt>String</tt>)</span>
+          <span class="default">
+            
+          </span>
+          
+            &mdash; <div class='inline'>
+<p>project to fetch from.</p>
+</div>
+          
+        </li>
+      
+    </ul>
+  
+    
+    
+    <p class="tag_title">Options Hash (<tt>pipeline:</tt>):</p>
+    <ul class="option">
+      
+        <li>
+          <span class="name">the</span>
+          <span class="type">(<tt>String</tt>)</span>
+          <span class="default">
+            
+          </span>
+          
+            &mdash; <div class='inline'>
+<p>pipeline to fetch from.</p>
+</div>
+          
+        </li>
+      
+    </ul>
+  
+
 
 </div><table class="source_code">
   <tr>
@@ -750,12 +902,12 @@
       <pre class="lines">
 
 
-80
-81
-82</pre>
+95
+96
+97</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/automate_soup.rb', line 80</span>
+      <pre class="code"><span class="info file"># File 'lib/automate_soup.rb', line 95</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_pipeline'>pipeline</span>
   <span class='ivar'>@pipeline</span>
@@ -861,7 +1013,7 @@
       <div class="method_details first">
   <h3 class="signature first" id="approve_change-class_method">
   
-    .<strong>approve_change</strong>(enterprise: @enterprise, organization: @organization, project: @project, pipeline: @pipeline, topic: nil, wait: false, timeout: 10, retries: 5)  &#x21d2; <tt>Object</tt> 
+    .<strong>approve_change</strong>(enterprise: @enterprise, organization: @organization, project: @project, pipeline: @pipeline, topic: nil, wait: false, timeout: 10, retries: 5)  &#x21d2; <tt>Boolean</tt> 
   
 
   
@@ -1173,6 +1325,24 @@
     </ul>
   
 
+<p class="tag_title">Returns:</p>
+<ul class="return">
+  
+    <li>
+      
+      
+        <span class='type'>(<tt>Boolean</tt>)</span>
+      
+      
+      
+        &mdash;
+        <div class='inline'>
+<p>true if the change was approved, false otherwise.</p>
+</div>
+      
+    </li>
+  
+</ul>
 
 </div><table class="source_code">
   <tr>
@@ -1180,24 +1350,6 @@
       <pre class="lines">
 
 
-140
-141
-142
-143
-144
-145
-146
-147
-148
-149
-150
-151
-152
-153
-154
-155
-156
-157
 158
 159
 160
@@ -1224,10 +1376,28 @@
 181
 182
 183
-184</pre>
+184
+185
+186
+187
+188
+189
+190
+191
+192
+193
+194
+195
+196
+197
+198
+199
+200
+201
+202</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/automate_soup.rb', line 140</span>
+      <pre class="code"><span class="info file"># File 'lib/automate_soup.rb', line 158</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_approve_change'>approve_change</span><span class='lparen'>(</span><span class='label'>enterprise:</span> <span class='ivar'>@enterprise</span><span class='comma'>,</span> <span class='label'>organization:</span> <span class='ivar'>@organization</span><span class='comma'>,</span> <span class='label'>project:</span> <span class='ivar'>@project</span><span class='comma'>,</span> <span class='label'>pipeline:</span> <span class='ivar'>@pipeline</span><span class='comma'>,</span> <span class='label'>topic:</span> <span class='kw'>nil</span><span class='comma'>,</span> <span class='label'>wait:</span> <span class='kw'>false</span><span class='comma'>,</span> <span class='label'>timeout:</span> <span class='int'>10</span><span class='comma'>,</span> <span class='label'>retries:</span> <span class='int'>5</span><span class='rparen'>)</span>
   <span class='id identifier rubyid_o'>o</span> <span class='op'>=</span> <span class='kw'>self</span><span class='period'>.</span><span class='id identifier rubyid_change_by_topic'>change_by_topic</span><span class='lparen'>(</span>
@@ -1282,7 +1452,7 @@
       <div class="method_details ">
   <h3 class="signature " id="change_by_topic-class_method">
   
-    .<strong>change_by_topic</strong>(enterprise: @enterprise, organization: @organization, project: @project, pipeline: @pipeline, topic: nil)  &#x21d2; <tt>Object</tt> 
+    .<strong>change_by_topic</strong>(enterprise: @enterprise, organization: @organization, project: @project, pipeline: @pipeline, topic: nil)  &#x21d2; <tt><span class='object_link'><a href="AutomateSoup/Change.html" title="AutomateSoup::Change (class)">AutomateSoup::Change</a></span></tt> 
   
 
   
@@ -1486,6 +1656,24 @@
     </ul>
   
 
+<p class="tag_title">Returns:</p>
+<ul class="return">
+  
+    <li>
+      
+      
+        <span class='type'>(<tt><span class='object_link'><a href="AutomateSoup/Change.html" title="AutomateSoup::Change (class)">AutomateSoup::Change</a></span></tt>)</span>
+      
+      
+      
+        &mdash;
+        <div class='inline'>
+<p>the change coresponding to the given topic.</p>
+</div>
+      
+    </li>
+  
+</ul>
 
 </div><table class="source_code">
   <tr>
@@ -1493,18 +1681,18 @@
       <pre class="lines">
 
 
-116
-117
-118
-119
-120
-121
-122
-123
-124</pre>
+133
+134
+135
+136
+137
+138
+139
+140
+141</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/automate_soup.rb', line 116</span>
+      <pre class="code"><span class="info file"># File 'lib/automate_soup.rb', line 133</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_change_by_topic'>change_by_topic</span><span class='lparen'>(</span><span class='label'>enterprise:</span> <span class='ivar'>@enterprise</span><span class='comma'>,</span> <span class='label'>organization:</span> <span class='ivar'>@organization</span><span class='comma'>,</span> <span class='label'>project:</span> <span class='ivar'>@project</span><span class='comma'>,</span> <span class='label'>pipeline:</span> <span class='ivar'>@pipeline</span><span class='comma'>,</span> <span class='label'>topic:</span> <span class='kw'>nil</span><span class='rparen'>)</span>
   <span class='id identifier rubyid_o'>o</span> <span class='op'>=</span> <span class='kw'>self</span><span class='period'>.</span><span class='id identifier rubyid_pipeline'>pipeline</span><span class='lparen'>(</span>
@@ -1523,7 +1711,7 @@
       <div class="method_details ">
   <h3 class="signature " id="deliver_change-class_method">
   
-    .<strong>deliver_change</strong>(enterprise: @enterprise, organization: @organization, project: @project, pipeline: @pipeline, topic: nil, wait: false, timeout: 10, retries: 5)  &#x21d2; <tt>Object</tt> 
+    .<strong>deliver_change</strong>(enterprise: @enterprise, organization: @organization, project: @project, pipeline: @pipeline, topic: nil, wait: false, timeout: 10, retries: 5)  &#x21d2; <tt>Boolean</tt> 
   
 
   
@@ -1835,6 +2023,24 @@
     </ul>
   
 
+<p class="tag_title">Returns:</p>
+<ul class="return">
+  
+    <li>
+      
+      
+        <span class='type'>(<tt>Boolean</tt>)</span>
+      
+      
+      
+        &mdash;
+        <div class='inline'>
+<p>true if the change was delivered, false otherwise.</p>
+</div>
+      
+    </li>
+  
+</ul>
 
 </div><table class="source_code">
   <tr>
@@ -1842,25 +2048,6 @@
       <pre class="lines">
 
 
-201
-202
-203
-204
-205
-206
-207
-208
-209
-210
-211
-212
-213
-214
-215
-216
-217
-218
-219
 220
 221
 222
@@ -1887,10 +2074,29 @@
 243
 244
 245
-246</pre>
+246
+247
+248
+249
+250
+251
+252
+253
+254
+255
+256
+257
+258
+259
+260
+261
+262
+263
+264
+265</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/automate_soup.rb', line 201</span>
+      <pre class="code"><span class="info file"># File 'lib/automate_soup.rb', line 220</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_deliver_change'>deliver_change</span><span class='lparen'>(</span><span class='label'>enterprise:</span> <span class='ivar'>@enterprise</span><span class='comma'>,</span> <span class='label'>organization:</span> <span class='ivar'>@organization</span><span class='comma'>,</span> <span class='label'>project:</span> <span class='ivar'>@project</span><span class='comma'>,</span> <span class='label'>pipeline:</span> <span class='ivar'>@pipeline</span><span class='comma'>,</span> <span class='label'>topic:</span> <span class='kw'>nil</span><span class='comma'>,</span> <span class='label'>wait:</span> <span class='kw'>false</span><span class='comma'>,</span> <span class='label'>timeout:</span> <span class='int'>10</span><span class='comma'>,</span> <span class='label'>retries:</span> <span class='int'>5</span><span class='rparen'>)</span>
   <span class='id identifier rubyid_o'>o</span> <span class='op'>=</span> <span class='kw'>self</span><span class='period'>.</span><span class='id identifier rubyid_change_by_topic'>change_by_topic</span><span class='lparen'>(</span>
@@ -1987,7 +2193,7 @@
       <div class="method_details ">
   <h3 class="signature " id="pipeline_topics-class_method">
   
-    .<strong>pipeline_topics</strong>(enterprise: &#39;default&#39;, organization: nil, project: nil, pipeline: nil)  &#x21d2; <tt>Object</tt> 
+    .<strong>pipeline_topics</strong>(enterprise: &#39;default&#39;, organization: nil, project: nil, pipeline: nil)  &#x21d2; <tt>Array</tt> 
   
 
   
@@ -2155,6 +2361,24 @@
     </ul>
   
 
+<p class="tag_title">Returns:</p>
+<ul class="return">
+  
+    <li>
+      
+      
+        <span class='type'>(<tt>Array</tt>)</span>
+      
+      
+      
+        &mdash;
+        <div class='inline'>
+<p>an array of strings holding change topics.</p>
+</div>
+      
+    </li>
+  
+</ul>
 
 </div><table class="source_code">
   <tr>
@@ -2162,17 +2386,17 @@
       <pre class="lines">
 
 
-97
-98
-99
-100
-101
-102
-103
-104</pre>
+113
+114
+115
+116
+117
+118
+119
+120</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/automate_soup.rb', line 97</span>
+      <pre class="code"><span class="info file"># File 'lib/automate_soup.rb', line 113</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_pipeline_topics'>pipeline_topics</span><span class='lparen'>(</span><span class='label'>enterprise:</span> <span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>default</span><span class='tstring_end'>&#39;</span></span><span class='comma'>,</span> <span class='label'>organization:</span> <span class='kw'>nil</span><span class='comma'>,</span> <span class='label'>project:</span> <span class='kw'>nil</span><span class='comma'>,</span> <span class='label'>pipeline:</span> <span class='kw'>nil</span><span class='rparen'>)</span>
   <span class='kw'>self</span><span class='period'>.</span><span class='id identifier rubyid_pipeline'>pipeline</span><span class='lparen'>(</span>
@@ -2199,13 +2423,129 @@
 </h3><div class="docstring">
   <div class="discussion">
     
-<p>Fetch all pipelines of a project under an enterprise, organization pair</p>
+<p>Fetch all project pipelines under an enterprise, organization pair</p>
+
+<p>default.</p>
 
 
   </div>
 </div>
 <div class="tags">
+  <p class="tag_title">Parameters:</p>
+<ul class="param">
   
+    <li>
+      
+        <span class='name'>enterprise</span>
+      
+      
+        <span class='type'>(<tt>Hash</tt>)</span>
+      
+      
+      
+        &mdash;
+        <div class='inline'>
+<p>a customizable set of options</p>
+</div>
+      
+    </li>
+  
+    <li>
+      
+        <span class='name'>organization</span>
+      
+      
+        <span class='type'>(<tt>Hash</tt>)</span>
+      
+      
+      
+        &mdash;
+        <div class='inline'>
+<p>a customizable set of options</p>
+</div>
+      
+    </li>
+  
+    <li>
+      
+        <span class='name'>project</span>
+      
+      
+        <span class='type'>(<tt>Hash</tt>)</span>
+      
+      
+      
+        &mdash;
+        <div class='inline'>
+<p>a customizable set of options</p>
+</div>
+      
+    </li>
+  
+</ul>
+
+  
+    
+    
+    <p class="tag_title">Options Hash (<tt>enterprise:</tt>):</p>
+    <ul class="option">
+      
+        <li>
+          <span class="name">the</span>
+          <span class="type">(<tt>String</tt>)</span>
+          <span class="default">
+            
+          </span>
+          
+            &mdash; <div class='inline'>
+<p>enterprise to fetch org from, defaults to</p>
+</div>
+          
+        </li>
+      
+    </ul>
+  
+    
+    
+    <p class="tag_title">Options Hash (<tt>organization:</tt>):</p>
+    <ul class="option">
+      
+        <li>
+          <span class="name">the</span>
+          <span class="type">(<tt>String</tt>)</span>
+          <span class="default">
+            
+          </span>
+          
+            &mdash; <div class='inline'>
+<p>organization to fetch pipelines from.</p>
+</div>
+          
+        </li>
+      
+    </ul>
+  
+    
+    
+    <p class="tag_title">Options Hash (<tt>project:</tt>):</p>
+    <ul class="option">
+      
+        <li>
+          <span class="name">the</span>
+          <span class="type">(<tt>String</tt>)</span>
+          <span class="default">
+            
+          </span>
+          
+            &mdash; <div class='inline'>
+<p>project to fetch pipelines from.</p>
+</div>
+          
+        </li>
+      
+    </ul>
+  
+
 
 </div><table class="source_code">
   <tr>
@@ -2213,12 +2553,12 @@
       <pre class="lines">
 
 
-73
-74
-75</pre>
+82
+83
+84</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/automate_soup.rb', line 73</span>
+      <pre class="code"><span class="info file"># File 'lib/automate_soup.rb', line 82</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_pipelines'>pipelines</span><span class='lparen'>(</span><span class='label'>enterprise:</span> <span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>default</span><span class='tstring_end'>&#39;</span></span><span class='comma'>,</span> <span class='label'>organization:</span> <span class='kw'>nil</span><span class='comma'>,</span> <span class='label'>project:</span> <span class='kw'>nil</span><span class='rparen'>)</span>
   <span class='ivar'>@api</span><span class='period'>.</span><span class='id identifier rubyid_pipelines'>pipelines</span><span class='lparen'>(</span><span class='label'>enterprise:</span> <span class='id identifier rubyid_enterprise'>enterprise</span><span class='comma'>,</span> <span class='label'>organization:</span> <span class='id identifier rubyid_organization'>organization</span><span class='comma'>,</span> <span class='label'>project:</span> <span class='id identifier rubyid_project'>project</span><span class='rparen'>)</span>
@@ -2240,13 +2580,93 @@
 </h3><div class="docstring">
   <div class="discussion">
     
-<p>Fetch all projects under an enterprise, organization pair</p>
+<p>Get the projects under and organization given the enterprise.</p>
+
+<p>default.</p>
 
 
   </div>
 </div>
 <div class="tags">
+  <p class="tag_title">Parameters:</p>
+<ul class="param">
   
+    <li>
+      
+        <span class='name'>enterprise</span>
+      
+      
+        <span class='type'>(<tt>Hash</tt>)</span>
+      
+      
+      
+        &mdash;
+        <div class='inline'>
+<p>a customizable set of options</p>
+</div>
+      
+    </li>
+  
+    <li>
+      
+        <span class='name'>organization</span>
+      
+      
+        <span class='type'>(<tt>Hash</tt>)</span>
+      
+      
+      
+        &mdash;
+        <div class='inline'>
+<p>a customizable set of options</p>
+</div>
+      
+    </li>
+  
+</ul>
+
+  
+    
+    
+    <p class="tag_title">Options Hash (<tt>enterprise:</tt>):</p>
+    <ul class="option">
+      
+        <li>
+          <span class="name">the</span>
+          <span class="type">(<tt>String</tt>)</span>
+          <span class="default">
+            
+          </span>
+          
+            &mdash; <div class='inline'>
+<p>enterprise to fetch org from, defaults to</p>
+</div>
+          
+        </li>
+      
+    </ul>
+  
+    
+    
+    <p class="tag_title">Options Hash (<tt>organization:</tt>):</p>
+    <ul class="option">
+      
+        <li>
+          <span class="name">the</span>
+          <span class="type">(<tt>String</tt>)</span>
+          <span class="default">
+            
+          </span>
+          
+            &mdash; <div class='inline'>
+<p>organization to fetch projects from.</p>
+</div>
+          
+        </li>
+      
+    </ul>
+  
+
 
 </div><table class="source_code">
   <tr>
@@ -2254,12 +2674,12 @@
       <pre class="lines">
 
 
-66
-67
-68</pre>
+70
+71
+72</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/automate_soup.rb', line 66</span>
+      <pre class="code"><span class="info file"># File 'lib/automate_soup.rb', line 70</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_projects'>projects</span><span class='lparen'>(</span><span class='label'>enterprise:</span> <span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>default</span><span class='tstring_end'>&#39;</span></span><span class='comma'>,</span> <span class='label'>organization:</span> <span class='kw'>nil</span><span class='rparen'>)</span>
   <span class='ivar'>@api</span><span class='period'>.</span><span class='id identifier rubyid_projects'>projects</span><span class='lparen'>(</span><span class='label'>enterprise:</span> <span class='id identifier rubyid_enterprise'>enterprise</span><span class='comma'>,</span> <span class='label'>organization:</span> <span class='id identifier rubyid_organization'>organization</span><span class='rparen'>)</span>
@@ -2556,7 +2976,7 @@
 </div>
 
       <div id="footer">
-  Generated on Mon Dec 18 14:49:18 2017 by
+  Generated on Tue Dec 19 09:58:14 2017 by
   <a href="http://yardoc.org" title="Yay! A Ruby Documentation Tool" target="_parent">yard</a>
   0.9.9 (ruby-2.4.1).
 </div>

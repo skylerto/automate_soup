@@ -61,21 +61,36 @@ module AutomateSoup
     end
 
     ##
-    # Fetch all projects under an enterprise, organization pair
+    # Get the projects under and organization given the enterprise.
+    #
+    # @option enterprise [String] the enterprise to fetch org from, defaults to
+    # default.
+    # @option organization [String] the organization to fetch projects from.
     #
     def projects(enterprise: 'default', organization: nil)
       @api.projects(enterprise: enterprise, organization: organization)
     end
 
     ##
-    # Fetch all pipelines of a project under an enterprise, organization pair
+    # Fetch all project pipelines under an enterprise, organization pair
+    #
+    # @option enterprise [String] the enterprise to fetch org from, defaults to
+    # default.
+    # @option organization [String] the organization to fetch pipelines from.
+    # @option project [String] the project to fetch pipelines from.
     #
     def pipelines(enterprise: 'default', organization: nil, project: nil)
       @api.pipelines(enterprise: enterprise, organization: organization, project: project)
     end
 
     ##
-    # Fetch a pipeline of a project under an enterprise, organization pair.
+    # Fetch a projects pipeline under an enterprise, organization pair
+    #
+    # @option enterprise [String] the enterprise to fetch org from, defaults to
+    # default.
+    # @option organization [String] the organization to fetch from.
+    # @option project [String] the project to fetch from.
+    # @option pipeline [String] the pipeline to fetch from.
     #
     def pipeline(enterprise: 'default', organization: nil, project: nil, pipeline: nil)
       arr = []
@@ -94,6 +109,7 @@ module AutomateSoup
     # @option project [String] the project to fetch from.
     # @option pipeline [String] the pipeline to fetch from.
     #
+    # @return [Array] an array of strings holding change topics.
     def pipeline_topics(enterprise: 'default', organization: nil, project: nil, pipeline: nil)
       self.pipeline(
         enterprise: enterprise,
@@ -113,6 +129,7 @@ module AutomateSoup
     # @option pipeline [String] the pipeline to fetch from.
     # @option topic [String] the topic to fetch a change from.
     #
+    # @return [AutomateSoup::Change] the change coresponding to the given topic.
     def change_by_topic(enterprise: @enterprise, organization: @organization, project: @project, pipeline: @pipeline, topic: nil)
       o = self.pipeline(
         enterprise: enterprise,
@@ -137,6 +154,7 @@ module AutomateSoup
     # to 10
     # @option retries [Integer] the amount of retries to make, defaults to 5
     #
+    # @return [Boolean] true if the change was approved, false otherwise.
     def approve_change(enterprise: @enterprise, organization: @organization, project: @project, pipeline: @pipeline, topic: nil, wait: false, timeout: 10, retries: 5)
       o = self.change_by_topic(
         enterprise: enterprise,
@@ -163,8 +181,13 @@ module AutomateSoup
         end
       end
 
-      o.approve
-      return true if !wait && o.deliverable?
+      app = o.approve
+      return true if !wait && !app.nil? && o.deliverable?
+      if app.nil? && !o.deliverable?
+        puts "Could not approve change #{o.current_stage.stage}: #{o.current_stage.status}"
+        return false
+      end
+
       times = 1
       while times <= retries
         o = self.change_by_topic(
@@ -198,6 +221,7 @@ module AutomateSoup
     # to 10
     # @option retries [Integer] the amount of retries to make, defaults to 5
     #
+    # @return [Boolean] true if the change was delivered, false otherwise.
     def deliver_change(enterprise: @enterprise, organization: @organization, project: @project, pipeline: @pipeline, topic: nil, wait: false, timeout: 10, retries: 5)
       o = self.change_by_topic(
         enterprise: enterprise,
@@ -225,8 +249,14 @@ module AutomateSoup
         end
       end
 
-      o.deliver
-      return true if !wait && o.delivered?
+      de = o.deliver
+      return true if !wait && !de.nil? && o.delivered?
+
+      if de.nil? && !o.deliverable?
+        puts "Could not deliver change #{o.current_stage.stage}: #{o.current_stage.status}"
+        return false
+      end
+
       times = 1
       while times <= retries
         o = self.change_by_topic(
