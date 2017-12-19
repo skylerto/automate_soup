@@ -35,10 +35,11 @@ module AutomateSoup
     #
     # @return [Boolean] if this change is delivered
     def delivered?
-      (current_stage.stage.eql?('delivered') &&
-        current_stage.status.eql?('passed') &&
-        !AutomateSoup.url.nil? &&
-        !AutomateSoup.credentials.nil?)
+      (!current_stage.nil? &&
+       current_stage.stage.eql?('delivered') &&
+       current_stage.status.eql?('passed') &&
+       !AutomateSoup.url.nil? &&
+       !AutomateSoup.credentials.nil?)
     end
 
     ##
@@ -46,13 +47,14 @@ module AutomateSoup
     #
     # @return [Boolean] if this change is deliverable
     def deliverable?
-      (current_stage.stage.eql?('acceptance') &&
-        current_stage.status.eql?('passed') &&
-        !AutomateSoup.url.nil? &&
-        !AutomateSoup.credentials.nil? &&
-        !links.nil? &&
-        !links['deliver'].nil? &&
-        !links['deliver']['href'].nil?)
+      (!current_stage.nil? &&
+       current_stage.stage.eql?('acceptance') &&
+       current_stage.status.eql?('passed') &&
+       !AutomateSoup.url.nil? &&
+       !AutomateSoup.credentials.nil? &&
+       !links.nil? &&
+       !links['deliver'].nil? &&
+       !links['deliver']['href'].nil?)
     end
 
     ##
@@ -60,13 +62,14 @@ module AutomateSoup
     #
     # @return [Boolean] if this change is approvable
     def approvable?
-      (current_stage.stage.eql?('verify') &&
-        current_stage.status.eql?('passed') &&
-        !AutomateSoup.url.nil? &&
-        !AutomateSoup.credentials.nil? &&
-        !links.nil? &&
-        !links['approve'].nil? &&
-        !links['approve']['href'].nil?)
+      (!current_stage.nil? &&
+       current_stage.stage.eql?('verify') &&
+       current_stage.status.eql?('passed') &&
+       !AutomateSoup.url.nil? &&
+       !AutomateSoup.credentials.nil? &&
+       !links.nil? &&
+       !links['approve'].nil? &&
+       !links['approve']['href'].nil?)
     end
 
     ##
