@@ -249,12 +249,12 @@
       <pre class="lines">
 
 
+8
 9
-10
-11</pre>
+10</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/automate_soup/stage.rb', line 9</span>
+      <pre class="code"><span class="info file"># File 'lib/automate_soup/stage.rb', line 8</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_initialize'>initialize</span><span class='lparen'>(</span><span class='id identifier rubyid_hash'>hash</span><span class='rparen'>)</span>
   <span class='ivar'>@source</span> <span class='op'>=</span> <span class='const'>OpenStruct</span><span class='period'>.</span><span class='id identifier rubyid_new'>new</span> <span class='id identifier rubyid_hash'>hash</span>
@@ -287,12 +287,12 @@
       <pre class="lines">
 
 
+12
 13
-14
-15</pre>
+14</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/automate_soup/stage.rb', line 13</span>
+      <pre class="code"><span class="info file"># File 'lib/automate_soup/stage.rb', line 12</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_method_missing'>method_missing</span><span class='lparen'>(</span><span class='id identifier rubyid_method'>method</span><span class='comma'>,</span> <span class='op'>*</span><span class='id identifier rubyid_args'>args</span><span class='comma'>,</span> <span class='op'>&amp;</span><span class='id identifier rubyid_block'>block</span><span class='rparen'>)</span>
   <span class='ivar'>@source</span><span class='period'>.</span><span class='id identifier rubyid_send'>send</span><span class='lparen'>(</span><span class='id identifier rubyid_method'>method</span><span class='comma'>,</span> <span class='op'>*</span><span class='id identifier rubyid_args'>args</span><span class='comma'>,</span> <span class='op'>&amp;</span><span class='id identifier rubyid_block'>block</span><span class='rparen'>)</span>
@@ -346,12 +346,12 @@
       <pre class="lines">
 
 
+20
 21
-22
-23</pre>
+22</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/automate_soup/stage.rb', line 21</span>
+      <pre class="code"><span class="info file"># File 'lib/automate_soup/stage.rb', line 20</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_failed?'>failed?</span>
   <span class='ivar'>@source</span><span class='period'>.</span><span class='id identifier rubyid_status'>status</span><span class='period'>.</span><span class='id identifier rubyid_eql?'>eql?</span> <span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>failed</span><span class='tstring_end'>&#39;</span></span>
@@ -398,12 +398,12 @@
       <pre class="lines">
 
 
+16
 17
-18
-19</pre>
+18</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/automate_soup/stage.rb', line 17</span>
+      <pre class="code"><span class="info file"># File 'lib/automate_soup/stage.rb', line 16</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_passed?'>passed?</span>
   <span class='ivar'>@source</span><span class='period'>.</span><span class='id identifier rubyid_status'>status</span><span class='period'>.</span><span class='id identifier rubyid_eql?'>eql?</span> <span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>passed</span><span class='tstring_end'>&#39;</span></span>
@@ -418,7 +418,7 @@
 </div>
 
       <div id="footer">
-  Generated on Mon Dec 18 14:49:18 2017 by
+  Generated on Tue Dec 19 09:58:14 2017 by
   <a href="http://yardoc.org" title="Yay! A Ruby Documentation Tool" target="_parent">yard</a>
   0.9.9 (ruby-2.4.1).
 </div>
