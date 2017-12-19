@@ -181,8 +181,13 @@ module AutomateSoup
         end
       end
 
-      o.approve
-      return true if !wait && o.deliverable?
+      app = o.approve
+      return true if !wait && !app.nil? && o.deliverable?
+      if app.nil? && !o.deliverable?
+        puts "Could not approve change #{o.current_stage.stage}: #{o.current_stage.status}"
+        return false
+      end
+
       times = 1
       while times <= retries
         o = self.change_by_topic(
@@ -244,8 +249,14 @@ module AutomateSoup
         end
       end
 
-      o.deliver
-      return true if !wait && o.delivered?
+      de = o.deliver
+      return true if !wait && !de.nil? && o.delivered?
+
+      if de.nil? && !o.deliverable?
+        puts "Could not deliver change #{o.current_stage.stage}: #{o.current_stage.status}"
+        return false
+      end
+
       times = 1
       while times <= retries
         o = self.change_by_topic(
