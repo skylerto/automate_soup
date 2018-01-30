@@ -20,7 +20,10 @@ module AutomateSoup
     # Determing the current stage of the change.
     # @return [AutomateSoup::Stage] the current stage.
     def current_stage
-      Stage.new @source.stages.last
+      stages = @source.stages
+      return nil if stages.empty?
+      stage = stages.last
+      Stage.new(stage)
     end
 
     ##
