@@ -9,6 +9,7 @@ module AutomateSoup
   module Rest
     class << self
       def get(url: nil, username: nil, token: nil)
+        puts "Making GET request to #{url}"
         uri = URI.parse(url)
         http = Net::HTTP.new(uri.host, uri.port)
         http.use_ssl = true

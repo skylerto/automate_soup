@@ -7,8 +7,8 @@ RSpec.describe AutomateSoup::API do
       username: ENV['AUTOMATE_USERNAME'],
       token: ENV['AUTOMATE_TOKEN']
     )
-    @organization = ENV['AUTOMATE_ORG'] || 'test'
-    @project = ENV['AUTOMATE_PROJECT'] || 'coffee_docker'
+    @organization = ENV['AUTOMATE_ORG'] || 'default'
+    @project = ENV['AUTOMATE_PROJECT'] || 'test'
     @pipeline = ENV['AUTOMATE_PIPELINE'] || 'master'
   end
 
@@ -19,7 +19,7 @@ RSpec.describe AutomateSoup::API do
   it 'should fetch organizations in a default enterprise' do
     expect(@soup.orgs).not_to be nil
     names = @soup.orgs.collect { |o| o['name'] }
-    expect(names).to include 'test'
+    expect(names).to include 'default'
   end
 
   it 'should fetch projects for an organization given a enterprise and an org' do
@@ -52,6 +52,7 @@ RSpec.describe AutomateSoup::API do
       project: @project,
       pipeline: @pipeline
     )
+    puts topics
     expect(topics).not_to be nil
     expect(topics).not_to be_empty
   end
@@ -61,7 +62,7 @@ RSpec.describe AutomateSoup::API do
       organization: @organization,
       project: @project,
       pipeline: @pipeline,
-      topic: 'foo'
+      topic: 'initialize-delivery-pipeline'
     )
     expect(topic).not_to be nil
   end
@@ -71,7 +72,7 @@ RSpec.describe AutomateSoup::API do
       organization: @organization,
       project: @project,
       pipeline: @pipeline,
-      topic: 'blahblahblah',
+      topic: 'initialize-delivery-pipeline',
       wait: true
     )
     expect(topic).not_to be nil

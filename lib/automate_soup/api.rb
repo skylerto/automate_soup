@@ -29,6 +29,7 @@ module AutomateSoup
         username: @soup.credentials.username,
         token: @soup.credentials.token
       )
+
       raise "Failed to fetch orgs under enterprise #{enterprise}" unless @hash['orgs']
       @hash['orgs']
     end

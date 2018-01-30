@@ -136,8 +136,10 @@ module AutomateSoup
         organization: organization,
         project: project,
         pipeline: pipeline
-      ).select { |p| p.topic.eql?(topic) }.first
-      AutomateSoup::Change.new o
+      ).select { |p| p.topic.eql?(topic) }
+      first = o.first
+      raise "Cannot find topic #{topic} in #{o}" if first.nil?
+      AutomateSoup::Change.new first
     end
 
     ##
@@ -163,6 +165,9 @@ module AutomateSoup
         pipeline: pipeline,
         topic: topic
       )
+
+      return true if !o.nil? && o.delivered?
+
       if wait && !o.approvable? && !o.deliverable?
         times = 1
         while times <= retries
