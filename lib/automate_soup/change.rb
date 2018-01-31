@@ -82,7 +82,8 @@ module AutomateSoup
       return nil if current_stage.stage != 'verify'
       raise 'Must run AutomateSoup.setup first' if AutomateSoup.url.nil? || AutomateSoup.credentials.nil?
       raise "Approve link not available, #{links.inspect}" if links.nil? || links['approve'].nil? || links['approve']['href'].nil?
-      url = "#{AutomateSoup.url}#{links['approve']['href']}"
+      url = links['approve']['href']
+      url = "#{AutomateSoup.url}#{}" unless url.include?('http')
       res = AutomateSoup::Rest.post(
         url: url,
         username: AutomateSoup.credentials.username,
