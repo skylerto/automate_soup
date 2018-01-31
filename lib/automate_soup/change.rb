@@ -21,9 +21,8 @@ module AutomateSoup
     # @return [AutomateSoup::Stage] the current stage.
     def current_stage
       stages = @source.stages
-      return nil if stages.empty?
-      stage = stages.last
-      Stage.new(stage)
+      return Stage.new(stages.last) unless stages.nil? || stages.empty?
+      nil
     end
 
     ##
