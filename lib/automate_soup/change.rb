@@ -83,7 +83,7 @@ module AutomateSoup
       raise 'Must run AutomateSoup.setup first' if AutomateSoup.url.nil? || AutomateSoup.credentials.nil?
       raise "Approve link not available, #{links.inspect}" if links.nil? || links['approve'].nil? || links['approve']['href'].nil?
       url = links['approve']['href']
-      url = "#{AutomateSoup.url}#{}" unless url.include?('http')
+      url = "#{AutomateSoup.url}#{url}" unless url.include?('http')
       res = AutomateSoup::Rest.post(
         url: url,
         username: AutomateSoup.credentials.username,
@@ -102,7 +102,8 @@ module AutomateSoup
       return nil if current_stage.stage != 'acceptance'
       raise 'Must run AutomateSoup.setup first' if AutomateSoup.url.nil? || AutomateSoup.credentials.nil?
       raise "Deliver link not available, #{links.inspect}" if links.nil? || links['deliver'].nil? || links['deliver']['href'].nil?
-      url = "#{AutomateSoup.url}#{links['deliver']['href']}"
+      url = links['deliver']['href']
+      url = "#{AutomateSoup.url}#{url}" unless url.include?('http')
       res = AutomateSoup::Rest.post(
         url: url,
         username: AutomateSoup.credentials.username,
