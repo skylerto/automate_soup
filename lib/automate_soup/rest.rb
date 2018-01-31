@@ -17,10 +17,13 @@ module AutomateSoup
         request = Net::HTTP::Get.new(uri.request_uri)
         request = auth_request request, username, token
         res = http.request(request)
-        JSON.parse(res.body)
+        res = JSON.parse(res.body)
+        puts "Response: #{res}"
+        res
       end
 
       def post(url: nil, username: nil, token: nil)
+        puts "Making POST request to #{url}"
         uri = URI.parse(url)
         http = Net::HTTP.new(uri.host, uri.port)
         http.use_ssl = true
